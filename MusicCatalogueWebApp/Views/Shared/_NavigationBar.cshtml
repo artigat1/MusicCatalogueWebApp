@@ -1,0 +1,33 @@
+﻿
+<div class="row">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="col-md-1"></div>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header col-md-5">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="glyphicon glyphicon-th-list light-grey"></span>
+                </button>
+                @Html.ActionLink("Steve's Music Catalogue", "Index", "Home", new { area = "" }, new { @class = "navbar-brand light-grey", @title = "Click to return to the homepage" })
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse col-md-5">
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-success" title="Click to start searching">
+                        <span class="sr-only">Search</span>
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @title = "Click to return to the homepage" })</li>
+                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @title = "Click to go to the About page" })</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @title = "Click to go to the Web Api help page" })</li>
+                </ul>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </nav>
+</div>

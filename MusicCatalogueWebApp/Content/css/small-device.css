@@ -1,0 +1,10 @@
+﻿@media (max-width: 767px){
+    .navbar-form .form-group{
+        width: 250px;
+        float: left;
+    }
+
+    .navbar-ex1-collapse{
+        padding: 0 1.5em;
+    }
+}
