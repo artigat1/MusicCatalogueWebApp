@@ -8,10 +8,12 @@ namespace MusicCatalogueWebApp.Data.Models
     public class Person
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int PersonId { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
-        public virtual ICollection<Recording> Recordings { get; set; }
+        public PersonType Type { get; set; }
     }
 }

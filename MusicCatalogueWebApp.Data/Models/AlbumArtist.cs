@@ -8,6 +8,7 @@ namespace MusicCatalogueWebApp.Data.Models
     public class AlbumArtist 
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int AlbumArtistId { get; set; }
 
         public int PersonId { get; set; }
