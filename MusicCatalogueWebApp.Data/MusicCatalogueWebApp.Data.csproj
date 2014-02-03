@@ -46,7 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Models\AlbumArtist.cs" />
+    <Compile Include="MusicCatalogueContext.cs" />
+    <Compile Include="Models\MediaType.cs" />
+    <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Recording.cs" />
+    <Compile Include="Models\RecordingType.cs" />
+    <Compile Include="MusicCatalogueInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
