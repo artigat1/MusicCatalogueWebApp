@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.WindowsAzure;
 using MusicCatalogueWebApp.Data.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -32,11 +31,6 @@ namespace MusicCatalogueWebApp.Data
             public void InitializeDatabase(MusicCatalogueContext context)
             {
                 if (context == null) throw new ArgumentNullException("context");
-                bool updateDbStructure;
-                bool.TryParse(CloudConfigurationManager.GetSetting("UpdateDatabaseStructure"), out updateDbStructure);
-                if (!updateDbStructure) return;
-
-                //context.UpdateDatabaseStructure();
             }
 
             #endregion
