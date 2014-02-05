@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -7,111 +8,110 @@ using MusicCatalogueWebApp.Data;
 
 namespace MusicCatalogueWebApp.Areas.Management.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class PersonController : Controller
+    public class RecordingController : Controller
     {
-        private MusicCatalogueContext db = new MusicCatalogueContext();
+        private readonly MusicCatalogueContext _db = new MusicCatalogueContext();
 
-        // GET: /Management/Person/
+        // GET: /Management/Recording/
         public ActionResult Index()
         {
-            return View(db.People.ToList());
+            return View(_db.Recordings.ToList());
         }
 
-        // GET: /Management/Person/Details/5
+        // GET: /Management/Recording/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Recording recording = _db.Recordings.Find(id);
+            if (recording == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+
+            return View(recording);
         }
 
-        // GET: /Management/Person/Create
+        // GET: /Management/Recording/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /Management/Person/Create
+        // POST: /Management/Recording/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="PersonId,Name")] Person person)
+        public ActionResult Create([Bind(Include="RecordingId,Title,AlbumArtist,RecordingDate,Type,Media,Comments")] Recording recording)
         {
-            if (ModelState.IsValid)
-            {
-                db.People.Add(person);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            if (!ModelState.IsValid) return View(recording);
 
-            return View(person);
+            recording.CreatedOn = DateTime.Now;
+            recording.LastUpdated = DateTime.Now;
+
+            _db.Recordings.Add(recording);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        // GET: /Management/Person/Edit/5
+        // GET: /Management/Recording/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Recording recording = _db.Recordings.Find(id);
+            if (recording == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+
+            return View(recording);
         }
 
-        // POST: /Management/Person/Edit/5
+        // POST: /Management/Recording/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="PersonId,Name")] Person person)
+        public ActionResult Edit([Bind(Include="RecordingId,Title,AlbumArtist,RecordingDate,Type,Media,Comments")] Recording recording)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(person).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(person);
+            if (!ModelState.IsValid) return View(recording);
+
+            recording.LastUpdated = DateTime.Now;
+
+            _db.Entry(recording).State = EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        // GET: /Management/Person/Delete/5
+        // GET: /Management/Recording/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Recording recording = _db.Recordings.Find(id);
+            if (recording == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(recording);
         }
 
-        // POST: /Management/Person/Delete/5
+        // POST: /Management/Recording/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Person person = db.People.Find(id);
-            db.People.Remove(person);
-            db.SaveChanges();
+            Recording recording = _db.Recordings.Find(id);
+            _db.Recordings.Remove(recording);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +119,7 @@ namespace MusicCatalogueWebApp.Areas.Management.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
