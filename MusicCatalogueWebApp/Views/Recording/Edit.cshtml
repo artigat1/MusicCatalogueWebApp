@@ -10,7 +10,8 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    @Html.HiddenFor(m => m.CreatedOn);
+
     <div class="form-horizontal">
         <h4>Recording</h4>
         <hr />
@@ -36,7 +37,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.RecordingDate, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecordingDate)
+                @if (Model.Type == MusicCatalogueWebApp.Data.Models.RecordingType.Live)
+                {
+                    Html.EditorFor(model => model.RecordingDate);
+                }
+                else {
+                    Html.EditorFor(model => model.RecordingDate.ToString("yyyy"));
+                }
                 @Html.ValidationMessageFor(model => model.RecordingDate)
             </div>
         </div>

@@ -9,12 +9,17 @@ namespace MusicCatalogueWebApp.Controllers
 {
     public class RecordingController : Controller
     {
-        private MusicCatalogueContext db = new MusicCatalogueContext();
+        private readonly MusicCatalogueContext _db = new MusicCatalogueContext();
 
         // GET: /Recording/
         public ActionResult Index()
         {
-            return View(db.Recordings.ToList());
+            var recordings = _db.Recordings
+                .Include(recording => recording.Performers)
+                .Include(recording => recording.Music)
+                .Include(recording => recording.Lyrics)
+                .ToList();
+            return View(recordings);
         }
 
         // GET: /Recording/Details/5
@@ -24,7 +29,12 @@ namespace MusicCatalogueWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recording recording = db.Recordings.Find(id);
+            Recording recording = _db.Recordings
+                .Include(r => r.Performers)
+                .Include(r => r.Music)
+                .Include(r => r.Lyrics)
+                .Single(r => r.RecordingId == id);
+
             if (recording == null)
             {
                 return HttpNotFound();
@@ -47,8 +57,8 @@ namespace MusicCatalogueWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Recordings.Add(recording);
-                db.SaveChanges();
+                _db.Recordings.Add(recording);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -62,7 +72,7 @@ namespace MusicCatalogueWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recording recording = db.Recordings.Find(id);
+            Recording recording = _db.Recordings.Find(id);
             if (recording == null)
             {
                 return HttpNotFound();
@@ -79,8 +89,8 @@ namespace MusicCatalogueWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(recording).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(recording).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(recording);
@@ -93,7 +103,7 @@ namespace MusicCatalogueWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recording recording = db.Recordings.Find(id);
+            Recording recording = _db.Recordings.Find(id);
             if (recording == null)
             {
                 return HttpNotFound();
@@ -106,9 +116,9 @@ namespace MusicCatalogueWebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Recording recording = db.Recordings.Find(id);
-            db.Recordings.Remove(recording);
-            db.SaveChanges();
+            Recording recording = _db.Recordings.Find(id);
+            _db.Recordings.Remove(recording);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -116,7 +126,7 @@ namespace MusicCatalogueWebApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Management/Views/Shared/_ManagementLayout.cshtml";
 }
 
 <h2>Details</h2>
@@ -57,6 +57,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AlbumImageUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AlbumImageUrl)
         </dd>
 
         <dt>

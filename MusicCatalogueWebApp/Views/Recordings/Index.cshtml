@@ -1,0 +1,95 @@
+@model IEnumerable<MusicCatalogueWebApp.Data.Models.Recording>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Title
+        </th>
+        <th>
+            AlbumArtist
+        </th>
+        <th>
+            RecordingDate
+        </th>
+        <th>
+            Type
+        </th>
+        <th>
+            Media
+        </th>
+        <th>
+            Comments
+        </th>
+        <th>
+            CreatedOn
+        </th>
+        <th>
+            LastUpdated
+        </th>
+        <th>
+            Performers
+        </th>
+        <th>
+            Music
+        </th>
+        <th>
+            Lyrics
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RecordingId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RecordingId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RecordingId })
+        </td>
+        <td>
+			@item.Title
+        </td>
+        <td>
+			@item.AlbumArtist
+        </td>
+        <td>
+			@String.Format("{0:g}", item.RecordingDate)
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.Type).ToString()
+        </td>
+        <td>
+			@Html.DisplayTextFor(_ => item.Media).ToString()
+        </td>
+        <td>
+			@item.Comments
+        </td>
+        <td>
+			@String.Format("{0:g}", item.CreatedOn)
+        </td>
+        <td>
+			@String.Format("{0:g}", item.LastUpdated)
+        </td>
+        <td>
+			@(item.Performers == null ? "None" : item.Performers.Count.ToString())
+        </td>
+        <td>
+			@(item.Music == null ? "None" : item.Music.Count.ToString())
+        </td>
+        <td>
+			@(item.Lyrics == null ? "None" : item.Lyrics.Count.ToString())
+        </td>
+    </tr>
+}
+
+</table>
+
+

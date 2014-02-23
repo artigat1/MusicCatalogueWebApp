@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using MusicCatalogueWebApp.Data.Models;
 using MusicCatalogueWebApp.Data;
@@ -10,27 +14,26 @@ namespace MusicCatalogueWebApp.Areas.Management.Controllers
 {
     public class RecordingController : Controller
     {
-        private readonly MusicCatalogueContext _db = new MusicCatalogueContext();
+        private MusicCatalogueContext db = new MusicCatalogueContext();
 
         // GET: /Management/Recording/
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(_db.Recordings.ToList());
+            return View(await db.Recordings.ToListAsync());
         }
 
         // GET: /Management/Recording/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recording recording = _db.Recordings.Find(id);
+            Recording recording = await db.Recordings.FindAsync(id);
             if (recording == null)
             {
                 return HttpNotFound();
             }
-
             return View(recording);
         }
 
@@ -45,31 +48,30 @@ namespace MusicCatalogueWebApp.Areas.Management.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="RecordingId,Title,AlbumArtist,RecordingDate,Type,Media,Comments")] Recording recording)
+        public async Task<ActionResult> Create([Bind(Include="RecordingId,Title,AlbumArtist,RecordingDate,Type,Media,Comments,AlbumImageUrl,CreatedOn,LastUpdated")] Recording recording)
         {
-            if (!ModelState.IsValid) return View(recording);
+            if (!ModelState.IsValid) 
+                return View(recording);
 
             recording.CreatedOn = DateTime.Now;
             recording.LastUpdated = DateTime.Now;
-
-            _db.Recordings.Add(recording);
-            _db.SaveChanges();
+            db.Recordings.Add(recording);
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         // GET: /Management/Recording/Edit/5
-        public ActionResult Edit(int? id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recording recording = _db.Recordings.Find(id);
+            Recording recording = await db.Recordings.FindAsync(id);
             if (recording == null)
             {
                 return HttpNotFound();
             }
-
             return View(recording);
         }
 
@@ -78,25 +80,25 @@ namespace MusicCatalogueWebApp.Areas.Management.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="RecordingId,Title,AlbumArtist,RecordingDate,Type,Media,Comments")] Recording recording)
+        public async Task<ActionResult> Edit([Bind(Include="RecordingId,Title,AlbumArtist,RecordingDate,Type,Media,Comments,AlbumImageUrl,CreatedOn,LastUpdated")] Recording recording)
         {
-            if (!ModelState.IsValid) return View(recording);
+            if (!ModelState.IsValid) 
+                return View(recording);
 
             recording.LastUpdated = DateTime.Now;
-
-            _db.Entry(recording).State = EntityState.Modified;
-            _db.SaveChanges();
+            db.Entry(recording).State = EntityState.Modified;
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         // GET: /Management/Recording/Delete/5
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Recording recording = _db.Recordings.Find(id);
+            Recording recording = await db.Recordings.FindAsync(id);
             if (recording == null)
             {
                 return HttpNotFound();
@@ -107,11 +109,11 @@ namespace MusicCatalogueWebApp.Areas.Management.Controllers
         // POST: /Management/Recording/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Recording recording = _db.Recordings.Find(id);
-            _db.Recordings.Remove(recording);
-            _db.SaveChanges();
+            Recording recording = await db.Recordings.FindAsync(id);
+            db.Recordings.Remove(recording);
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +121,7 @@ namespace MusicCatalogueWebApp.Areas.Management.Controllers
         {
             if (disposing)
             {
-                _db.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }

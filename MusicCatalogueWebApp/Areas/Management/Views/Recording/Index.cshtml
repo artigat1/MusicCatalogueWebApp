@@ -1,8 +1,9 @@
-﻿@model IEnumerable<MusicCatalogueWebApp.Data.Models.Recording>
+﻿@using System
+@model System.Collections.Generic.IEnumerable<MusicCatalogueWebApp.Data.Models.Recording>
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Management/Views/Shared/_ManagementLayout.cshtml";
 }
 
 <h2>Index</h2>
@@ -27,15 +28,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Media)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Comments)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastUpdated)
-        </th>
         <th></th>
     </tr>
 
@@ -48,22 +40,20 @@
             @Html.DisplayFor(modelItem => item.AlbumArtist)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RecordingDate)
+            @if (item.Type == MusicCatalogueWebApp.Data.Models.RecordingType.Live)
+            {
+                @Html.DisplayFor(modelItem => item.RecordingDate);
+            }
+            else
+            {
+                @String.Format("{0:yyyy}", item.RecordingDate);
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Type)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Media)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Comments)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedOn)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastUpdated)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RecordingId }) |

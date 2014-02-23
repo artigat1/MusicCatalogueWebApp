@@ -1,0 +1,53 @@
+@model MusicCatalogueWebApp.Data.Models.Recording
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Recording</legend>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">@Model.Title</div>
+
+    <div class="display-label">AlbumArtist</div>
+    <div class="display-field">@Model.AlbumArtist</div>
+
+    <div class="display-label">RecordingDate</div>
+    <div class="display-field">@String.Format("{0:g}", Model.RecordingDate)</div>
+
+    <div class="display-label">Type</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.Type).ToString()</div>
+
+    <div class="display-label">Media</div>
+    <div class="display-field">@Html.DisplayTextFor(_ => Model.Media).ToString()</div>
+
+    <div class="display-label">Comments</div>
+    <div class="display-field">@Model.Comments</div>
+
+    <div class="display-label">CreatedOn</div>
+    <div class="display-field">@String.Format("{0:g}", Model.CreatedOn)</div>
+
+    <div class="display-label">LastUpdated</div>
+    <div class="display-field">@String.Format("{0:g}", Model.LastUpdated)</div>
+
+    <div class="display-label">Performers</div>
+    <div class="display-field">@(Model.Performers == null ? "None" : Model.Performers.Count.ToString())</div>
+
+    <div class="display-label">Music</div>
+    <div class="display-field">@(Model.Music == null ? "None" : Model.Music.Count.ToString())</div>
+
+    <div class="display-label">Lyrics</div>
+    <div class="display-field">@(Model.Lyrics == null ? "None" : Model.Lyrics.Count.ToString())</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+
