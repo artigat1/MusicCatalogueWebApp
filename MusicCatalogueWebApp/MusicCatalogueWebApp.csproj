@@ -206,6 +206,7 @@
     <Content Include="Areas\Management\Views\Recording\Details.cshtml" />
     <Content Include="Areas\Management\Views\Recording\Edit.cshtml" />
     <Content Include="Areas\Management\Views\Recording\Index.cshtml" />
+    <Content Include="Areas\Management\Views\Shared\DisplayTemplates\Person.cshtml" />
     <None Include="Properties\PublishProfiles\musiccatalogue.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

@@ -22,7 +22,7 @@ namespace MusicCatalogueWebApp.Data.Models
         public string AlbumArtist { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:d MMM yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Recording Date")]
         public DateTime RecordingDate { get; set; }
 

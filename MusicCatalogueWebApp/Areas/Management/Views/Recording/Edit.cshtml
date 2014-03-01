@@ -1,6 +1,6 @@
 ﻿@using System
 @using MusicCatalogueWebApp.Data.Models
-@model MusicCatalogueWebApp.Data.Models.Recording
+@model MusicCatalogueWebApp.Areas.Management.Models.RecordingViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -9,76 +9,188 @@
 
 <h2>Edit</h2>
 
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.CreatedOn)
-    
+    @Html.HiddenFor(m => m.Recording.CreatedOn)
+
     <div class="form-horizontal">
         <h4>Recording</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.RecordingId)
+        @Html.HiddenFor(model => model.Recording.RecordingId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Recording.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Title)
-                @Html.ValidationMessageFor(model => model.Title)
+                @Html.EditorFor(model => model.Recording.Title)
+                @Html.ValidationMessageFor(model => model.Recording.Title)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AlbumArtist, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Recording.AlbumArtist, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AlbumArtist)
-                @Html.ValidationMessageFor(model => model.AlbumArtist)
+                @Html.EditorFor(model => model.Recording.AlbumArtist)
+                @Html.ValidationMessageFor(model => model.Recording.AlbumArtist)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RecordingDate, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Recording.RecordingDate, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RecordingDate)
-                @Html.ValidationMessageFor(model => model.RecordingDate)
+                @Html.EditorFor(model => model.Recording.RecordingDate)
+                @Html.ValidationMessageFor(model => model.Recording.RecordingDate)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Type, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Recording.Type, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(x => x.Type, new SelectList(Enum.GetValues(typeof(RecordingType))))
-                @Html.ValidationMessageFor(model => model.Type)
+                @Html.DropDownListFor(x => x.Recording.Type, new SelectList(Enum.GetValues(typeof(RecordingType))))
+                @Html.ValidationMessageFor(model => model.Recording.Type)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Media, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Recording.Media, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(x => x.Media, new SelectList(Enum.GetValues(typeof(MediaType))))
-                @Html.ValidationMessageFor(model => model.Media)
+                @Html.DropDownListFor(x => x.Recording.Media, new SelectList(Enum.GetValues(typeof(MediaType))))
+                @Html.ValidationMessageFor(model => model.Recording.Media)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.AlbumImageUrl, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Recording.AlbumImageUrl, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.AlbumImageUrl)
-                @Html.ValidationMessageFor(model => model.AlbumImageUrl)
+                @Html.EditorFor(model => model.Recording.AlbumImageUrl)
+                @Html.ValidationMessageFor(model => model.Recording.AlbumImageUrl)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Comments, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Recording.Comments, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Comments)
-                @Html.ValidationMessageFor(model => model.Comments)
+                @Html.EditorFor(model => model.Recording.Comments)
+                @Html.ValidationMessageFor(model => model.Recording.Comments)
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<h4>Composers</h4>
+<hr />
+
+<div class="form-group">
+    <ul class="col-md-offset-2 col-md-10">
+        @foreach (var person in Model.Composers)
+        {
+            <li>@Html.Raw(person.Name)</li>
+        }
+    </ul>
+</div>
+
+@using (Html.BeginForm("AddPerson", "Recording"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="personType" value="@AlbumArtistType.Composer" />
+    <input type="hidden" name="recordingId" value="@Model.Recording.RecordingId" />
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(m => m.NewComposer.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="text-box single-line" data-val="true" data-val-required="The Name field is required." id="NewCompser.Name" name="Name" type="text" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add composer" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<h4>Lyricists</h4>
+<hr />
+
+<div class="form-group">
+    <ul class="col-md-offset-2 col-md-10">
+        @foreach (var person in Model.Lyricist)
+        {
+            <li>@Html.Raw(person.Name)</li>
+        }
+    </ul>
+</div>
+
+@using (Html.BeginForm("AddPerson", "Recording"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="personType" value="@AlbumArtistType.Lyricist" />
+    <input type="hidden" name="recordingId" value="@Model.Recording.RecordingId" />
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(m => m.NewLyricist.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="text-box single-line" data-val="true" data-val-required="The Name field is required." id="NewCompser.Name" name="Name" type="text" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add lyricist" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<h4>Performers</h4>
+<hr />
+
+<div class="form-group">
+    <ul class="col-md-offset-2 col-md-10">
+        @foreach (var person in Model.Performers)
+        {
+            <li>@Html.Raw(person.Name)</li>
+        }
+    </ul>
+</div>
+
+@using (Html.BeginForm("AddPerson", "Recording"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="personType" value="@AlbumArtistType.Performer" />
+    <input type="hidden" name="recordingId" value="@Model.Recording.RecordingId" />
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(m => m.NewPerformer.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input class="text-box single-line" data-val="true" data-val-required="The Name field is required." id="NewCompser.Name" name="Name" type="text" value="">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add performer" class="btn btn-default" />
             </div>
         </div>
     </div>

@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AlbumArtist.cs" />
-    <Compile Include="Models\PerformerType.cs" />
+    <Compile Include="Models\AlbumArtistType.cs" />
     <Compile Include="MusicCatalogueContext.cs" />
     <Compile Include="Models\MediaType.cs" />
     <Compile Include="Models\Person.cs" />

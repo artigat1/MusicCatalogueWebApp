@@ -5,7 +5,7 @@ namespace MusicCatalogueWebApp.Data.Models
     /// <summary>
     /// The type of people associated with a recording.
     /// </summary>
-    public enum PersonType
+    public enum AlbumArtistType
     {
         /// <summary>
         /// The unknown
