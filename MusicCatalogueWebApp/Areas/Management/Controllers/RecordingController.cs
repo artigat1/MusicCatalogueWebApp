@@ -20,7 +20,12 @@ namespace MusicCatalogueWebApp.Areas.Management.Controllers
         // GET: /Management/Recording/
         public async Task<ActionResult> Index()
         {
-            return View(await db.Recordings.OrderBy(x => x.Title).ToListAsync());
+            return View(
+                await db.Recordings
+                    .OrderBy(x => x.Title)
+                    .ThenBy(x => x.Type)
+                    .ThenBy(x => x.RecordingDate)
+                    .ToListAsync());
         }
 
         // GET: /Management/Recording/Details/5
