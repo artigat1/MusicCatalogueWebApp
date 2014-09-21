@@ -1,0 +1,108 @@
+﻿<div class="recordings view indent">
+    <div class="container">
+        <header>
+            <h3><span class="glyphicon glyphicon-user"></span> Recordings</h3>
+        </header>
+        <div class="row">
+            <div class="col-md-10">
+                <div class="navbar">
+                    <ul class="nav navbar-nav">
+                        <li data-ng-class="{active: !listDisplayModeEnabled}" class="toolbaritem"><a data-ng-click="changeDisplayMode(DisplayModeEnum.Card)"><span class="glyphicon glyphicon-th-large"></span> Card View</a></li>
+                        <li data-ng-class="{active: listDisplayModeEnabled}" class="toolbaritem"><a data-ng-click="changeDisplayMode(DisplayModeEnum.List)"><span class="glyphicon glyphicon-align-justify"></span> List View</a></li>
+                        <li class="toolbaritem"><a data-ng-click="navigate('/recordingedit/0')"><span class="glyphicon glyphicon-plus"></span> Add Recording</a></li>
+                    </ul>
+                    <!--<form class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <label class="navbarText col-sm-2">Filter:</label>
+                            <div class="col-sm-10">
+                                <input type="text" data-ng-model="searchText" data-ng-change="searchTextChanged();" class="novalidate form-control" />
+                            </div>
+                        </div>
+                    </form>-->
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row cardContainer show-hide-animation" data-ng-hide="listDisplayModeEnabled">
+                <div class="col-sm-6 col-md-3" data-ng-class="cardAnimationClass"
+                     data-ng-repeat="recording in recordings | orderBy:'title'">
+                    <div class="card">
+                        <button class="btn close cardClose" title="Delete Recording" data-ng-click="deleteRecording(recording.id)">&times;</button>
+                        <div class="cardHeader"><a href="#/recordingedit/{{recording.id}}" class="white">{{ recording.title }} <i class="icon-edit icon-white editIcon"></i></a></div>
+                        <div class="cardBody">
+                            <div class="clearfix">
+                                <div class="pull-left cardBodyLeft">
+                                    <a href="#/recordingedit/{{recording.id}}" class="white"><img data-ng-src="{{ recording.coverImage }}" class="cardImage" /></a>
+                                </div>
+                                <div class="pull-left cardBodyRight">
+                                    <div class="cardBodyContent">{{recording.title}} ({{recording.albumArtist}})</div>
+                                    <div>
+                                        <a href="#/recordingorders/{{recording.id}}" class="btn-link">
+                                            {{ recording.orderCount }}
+                                            <span data-ng-pluralize count="recording.orderCount"
+                                                  when="{'1': 'Recording','other': 'Recordings'}">
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row gridContainer recordingsTable show-hide-animation" data-ng-show="listDisplayModeEnabled">
+                <div class="col-md-10">
+                    <div>
+                        <table class="table table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>Cover Image</th>
+                                    <th data-ng-click="setOrder('title')">Title</th>
+                                    <th data-ng-click="setOrder('albumArtist')">Album Artist</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="recording in recordings | orderBy: 'title'" class="repeat-animation">
+                                    <td><a href="#/recordingedit/{{recording.id}}"><img data-ng-src="{{recording.coverImage}}" class="cardImage" alt="recording Image" /></a></td>
+                                    <td><a href="#/recordingedit/{{recording.id}}">{{recording.title}}</a></td>
+                                    <td>{{recording.albumArtist}}</td>
+                                    <td>
+                                        <a href="#/recordingorders/{{recording.id}}" class="btn-link">
+                                            {{ recording.orderCount }}
+                                            <span data-ng-pluralize count="recording.orderCount"
+                                                  when="{'1': 'Order','other': 'Orders'}">
+                                            </span>
+                                        </a>
+                                    </td>
+                                    <td><button class="btn btn-danger" data-ng-click="deleterecording(recording.id)">Delete</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row show-hide-animation" data-ng-show="filteredrecordings.length == 0">
+                <div class="col-span-12">
+                    <h4>No recordings found</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row show-hide-animation" data-ng-show="recordings.length > 0">
+            <div class="col-md-12">
+                <div data-pagination
+                     data-on-select-page="pageChanged(page)"
+                     data-total-items="totalRecords"
+                     data-page="currentPage"
+                     data-items-per-page="pageSize"
+                     data-boundary-links="true"
+                     class="pagination-sm"></div>
+                <h5>Showing {{ filteredCount }} of {{ totalRecords}} total recordings</h5>
+            </div>
+        </div>
+        <br /><br /><br />
+    </div>
+</div>

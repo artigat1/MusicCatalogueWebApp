@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -66,25 +67,51 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
-    <Content Include="Content\musicCatalogueStyles.css" />
+    <Content Include="app\musicCatalogueApp\animations\listAnimations.js" />
+    <Content Include="app\musicCatalogueApp\controllers\navbarController.js" />
+    <Content Include="app\musicCatalogueApp\controllers\recordings\recordingsController.js" />
+    <Content Include="app\musicCatalogueApp\services\config.js" />
+    <Content Include="app\musicCatalogueApp\services\recordingsService.js" />
+    <Content Include="app\musicCatalogueApp\services\routeResolver.js" />
+    <Content Include="app\musicCatalogueApp\views\recordings\recordings.html" />
+    <Content Include="app\wc.directives\directives\menuHighlighter.js" />
+    <Content Include="app\wc.directives\directives\wcOverlay.js" />
+    <Content Include="Content\animations.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.icon-large.min.css" />
+    <Content Include="Content\images\music-icon-small.png" />
+    <Content Include="Content\images\music-icon.jpg" />
+    <Content Include="Content\images\spinner.gif" />
     <Content Include="Content\styles.css" />
-    <Content Include="MusicCatalogueApp.html" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="index.html" />
     <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-ui-bootstrap.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\breeze.angular.q.js" />
+    <Content Include="Scripts\breeze.debug.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Scripts\breeze.intellisense.js" />
+    <Content Include="Scripts\breeze.min.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\TweenMax.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\controllers\" />
-    <Folder Include="app\directives\" />
-    <Folder Include="app\factories\" />
-    <Folder Include="app\partials\" />
-    <Folder Include="Content\images\" />
+    <Folder Include="app\musicCatalogueApp\directives\" />
+    <Folder Include="app\musicCatalogueApp\filters\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
