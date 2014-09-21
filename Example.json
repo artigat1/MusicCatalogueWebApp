@@ -1,0 +1,26 @@
+{
+    "_id": {
+        "$oid": "53b015b5e4b0db9c018a1733"
+    },
+    "Title": "Miss Saigon",
+    "AlbumArtist": "Original London Cast",
+    "ReleaseYear": "1989",
+    "Type": "Commercial",
+    "Media": "CD",
+    "AddedToCollection": "2014-06-29",
+    "Music": [
+        "Claude-Michel Schonberg"
+    ],
+    "Lyrics": [
+        "Alain Boublil",
+        "Richard Maltby, Jr."
+    ],
+    "Cast": [
+        "Jonathan Pryce",
+        "Lea Salonga",
+        "Peter Polycarpou",
+        "Claire Moore",
+        "Simon Bowman",
+        "Keith Burns"
+    ]
+}
